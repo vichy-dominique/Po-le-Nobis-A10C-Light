@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide Poêle Nobis A10C Light</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --orange: #E8500A;
+    --orange-light: #FF6B2B;
+    --dark: #1A1410;
+    --warm: #2C1F14;
+    --cream: #F5EFE6;
+    --cream-dark: #E8DDD0;
+    --text: #2C1F14;
+    --muted: #7A6555;
+    --green: #2A6B3C;
+    --green-light: #EBF5EF;
+    --blue: #1A5276;
+    --blue-light: #EBF2F8;
+    --amber: #C07A00;
+    --amber-light: #FEF5E0;
+    --red: #8B1A1A;
+    --red-light: #FDEAEA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: var(--orange);
+    border-radius: 50%;
+    opacity: 0.12;
+  }
+  .header::after {
+    content: '🔥';
+    position: absolute;
+    right: 2rem; top: 50%;
+    transform: translateY(-50%);
+    font-size: 4rem;
+    opacity: 0.25;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .header h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .header h1 span { color: var(--orange-light); }
+  .header p {
+    font-size: 0.85rem;
+    color: #B0A090;
+    font-weight: 300;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    background: var(--warm);
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: #B0A090;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.9rem 1.2rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn.active {
+    color: var(--orange-light);
+    border-bottom-color: var(--orange-light);
+    background: rgba(255,107,43,0.08);
+  }
+  .tab-btn:hover:not(.active) { color: var(--cream); }
+
+  /* CONTENT */
+  .content {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 1.8rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-title .ico {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: white;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .check-item:hover { border-color: var(--orange); transform: translateX(2px); }
+  .check-item.checked {
+    background: var(--green-light);
+    border-color: var(--green);
+    opacity: 0.75;
+  }
+  .check-item.checked .check-box { background: var(--green); border-color: var(--green); }
+  .check-item.checked .check-box::after { content: '✓'; color: white; font-size: 0.75rem; font-weight: 700; }
+  .check-item.checked .check-label { text-decoration: line-through; color: var(--muted); }
+
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid var(--cream-dark);
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    background: white;
+  }
+
+  .check-label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    line-height: 1.4;
+    flex: 1;
+  }
+  .check-label .step-num {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.1rem 0.45rem;
+    border-radius: 4px;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+  }
+  .check-label .note {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* ALERT BOXES */
+  .alert {
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    font-size: 0.82rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .alert-ico { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+  .alert.info { background: var(--blue-light); color: var(--blue); border: 1px solid #C0D8EC; }
+  .alert.warn { background: var(--amber-light); color: var(--amber); border: 1px solid #F5D78E; }
+  .alert.danger { background: var(--red-light); color: var(--red); border: 1px solid #F0C0C0; }
+  .alert.success { background: var(--green-light); color: var(--green); border: 1px solid #A8D8B8; }
+  .alert strong { display: block; margin-bottom: 0.2rem; font-weight: 700; }
+
+  /* RESET BUTTON */
+  .reset-btn {
+    background: none;
+    border: 1.5px solid var(--cream-dark);
+    color: var(--muted);
+    font-family: 'Sora', sans-serif;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: block;
+    margin: 1.5rem auto 0;
+  }
+  .reset-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+  /* TEMP CARD */
+  .temp-card {
+    background: var(--dark);
+    color: var(--cream);
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+  }
+  .temp-card h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange-light); margin-bottom: 0.75rem; }
+  .param-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.85rem;
+  }
+  .param-row:last-child { border-bottom: none; }
+  .param-name { color: #B0A090; }
+  .param-val { font-family: 'Space Mono', monospace; font-weight: 700; color: var(--orange-light); }
+
+  /* PHASE BADGE */
+  .phase-list { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.75rem 0; }
+  .phase-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 10px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.82rem;
+  }
+  .phase-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-orange { background: var(--orange); }
+  .dot-green { background: var(--green); }
+  .dot-blue { background: var(--blue); }
+  .dot-amber { background: var(--amber); }
+  .dot-red { background: var(--red); }
+  .phase-name { font-weight: 600; width: 130px; flex-shrink: 0; }
+  .phase-desc { color: var(--muted); font-size: 0.78rem; }
+
+  /* PROGRESS BAR */
+  .progress-wrap { margin: 1.5rem 0 0; }
+  .progress-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.4rem; display: flex; justify-content: space-between; }
+  .progress-bar { background: var(--cream-dark); border-radius: 10px; height: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--orange); border-radius: 10px; transition: width 0.4s; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--cream-dark); margin: 1.5rem 0; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--muted);
+    padding: 1.5rem 1rem;
+    border-top: 1px solid var(--cream-dark);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">Guide simplifié — Débutant</div>
+  <h1>Poêle <span>Nobis A10C Light</span><br>Mode d'emploi essentiel</h1>
+  <p>Allumage · Programmation · Extinction · Économies</p>
+</div>
+
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="showPanel('allumage')">🔥 Allumage</button>
+  <button class="tab-btn" onclick="showPanel('programmation')">⚙️ Programmation</button>
+  <button class="tab-btn" onclick="showPanel('extinction')">❄️ Extinction été</button>
+  <button class="tab-btn" onclick="showPanel('economies')">💡 Économies 21°C</button>
+  <button class="tab-btn" onclick="showPanel('alarmes')">🚨 Alarmes</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 1 : ALLUMAGE -->
+<!-- ============================================================ -->
+<div class="content">
+<div id="panel-allumage" class="panel active">
+
+  <div class="alert info">
+    <span class="alert-ico">ℹ️</span>
+    <div>Coche chaque étape au fur et à mesure. Tu peux tout remettre à zéro avec le bouton en bas.</div>
+  </div>
+
+  <div class="section-title"><span class="ico">🟠</span> Avant d'allumer</div>
+  <div class="checklist" id="cl-avant">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">1</span>Vérifier le niveau de granulés<span class="note">Ouvrir le portillon supérieur — réservoir max 35 kg</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">2</span>Vider le tiroir à cendres si plein<span class="note">Toujours avec un aspire-cendres — jamais à la main, braises possibles</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">3</span>Vérifier que porte et tiroir sont bien fermés<span class="note">Un contact mal fermé = alarme immédiate</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">4</span>Interrupteur <strong>I/O</strong> sur le panneau latéral gauche → position <strong>I</strong><span class="note">Panneau côté gauche quand on est face au poêle — fusible 4A juste en dessous, à vérifier si rien ne s'allume</span></div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="ico">🔥</span> Allumage</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">5</span>Appuyer <strong>longuement</strong> sur le bouton ON/OFF de la télécommande<span class="note">Maintenir jusqu'au bip sonore et à l'apparition de l'écran d'allumage</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">6</span>Attendre la phase de démarrage automatique<span class="note">L'appareil charge les granulés, chauffe la résistance, allume la flamme — compter 10 à 20 min</span></div>
+    </div>
+  </div>
+
+  <div class="alert warn">
+    <span class="alert-ico">⚠️</span>
+    <div><strong>Première utilisation de la saison</strong> Des odeurs légères sont normales au premier allumage — laisser bien aérer la pièce pendant 1h.</div>
+  </div>
+
+  <div class="section-title"><span class="ico">📊</span> Phases d'allumage — ce que tu vois à l'écran</div>
+  <div class="phase-list">
+    <div class="phase-item"><div class="phase-dot dot-orange"></div><div class="phase-name">MISE EN MARCHE</div><div class="phase-desc">Granulés qui tombent dans le brasero, résistance qui chauffe</div></div>
+    <div class="phase-item"><div class="phase-dot dot-amber"></div><div class="phase-name">ATTENTE FLAMME</div><div class="phase-desc">On attend que la flamme prenne — patienter sans toucher</div></div>
+    <div class="phase-item"><div class="phase-dot dot-orange"></div><div class="phase-name">PHASE FLAMME</div><div class="phase-desc">Stabilisation de la combustion</div></div>
+    <div class="phase-item"><div class="phase-dot dot-green"></div><div class="phase-name">TRAVAIL</div><div class="phase-desc">✅ L'appareil chauffe normalement à la puissance choisie</div></div>
+    <div class="phase-item"><div class="phase-dot dot-blue"></div><div class="phase-name">ÉCONOMIE</div><div class="phase-desc">Température atteinte — l'appareil ralentit pour économiser</div></div>
+  </div>
+
+  <button class="reset-btn" onclick="resetChecklist('cl-avant')">↺ Remettre à zéro les cases</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 2 : PROGRAMMATION -->
+<!-- ============================================================ -->
+<div id="panel-programmation" class="panel">
+
+  <div class="alert success">
+    <span class="alert-ico">✅</span>
+    <div>Ces réglages se font une seule fois et restent en mémoire. Tu n'y retouches qu'en cas de besoin.</div>
+  </div>
+
+  <div class="section-title"><span class="ico">🌡️</span> Régler la température souhaitée</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">1</span>Depuis l'écran de veille, appuyer sur la flèche <strong>↑</strong><span class="note">La valeur de température apparaît — elle va de 7°C à MAN</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">2</span>Monter/descendre avec ↑ ↓ pour choisir <strong>ta température souhaitée</strong><span class="note">Confirmation automatique après 3 secondes, ou appuyer OK</span></div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="ico">⚡</span> Régler la puissance de chauffe</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">3</span>Depuis l'écran de veille, appuyer sur la flèche <strong>↓</strong><span class="note">La valeur de puissance apparaît (1 à 7)</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">4</span>Choisir la puissance selon la situation<span class="note">Maison froide → puissance 5 ou 6 / Maintien → puissance 3 ou 4</span></div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="ico">🤖</span> Activer le mode AUTO (recommandé)</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">5</span>Appuyer sur <strong>OK</strong> pour ouvrir le menu<span class="note">On voit : HABILITER AUTO / ENABLE POWERFUL / REGLAGE UTILIZ. / REGLAGE TECHNIQ.</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">6</span>Sélectionner <strong>HABILITER AUTO</strong> → cocher avec OK<span class="note">✅ En mode AUTO, le poêle gère tout seul la puissance pour atteindre 21°C — c'est le mode le plus économique</span></div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="ico">⏰</span> Programmer le chrono (optionnel)</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">7</span>Menu → REGLAGE UTILIZ. → CHRONOTHERMOSTAT<span class="note">Pour allumer/éteindre automatiquement chaque jour à des heures fixes</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">8</span>Programmer jusqu'à 4 plages horaires par jour<span class="note">Exemple : allumage 6h30, extinction 9h / allumage 17h, extinction 22h30</span></div>
+    </div>
+  </div>
+
+  <div class="temp-card">
+    <h3>Réglages recommandés — température de votre choix</h3>
+    <div class="param-row"><span class="param-name">Température cible</span><span class="param-val">ex. 20°C</span></div>
+    <div class="param-row"><span class="param-name">Mode de gestion</span><span class="param-val">AUTO</span></div>
+    <div class="param-row"><span class="param-name">Puissance démarrage à froid</span><span class="param-val">5 ou 6</span></div>
+    <div class="param-row"><span class="param-name">Puissance de maintien</span><span class="param-val">3 ou 4</span></div>
+    <div class="param-row"><span class="param-name">Confort Climat</span><span class="param-val">ACTIVÉ</span></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 3 : EXTINCTION ÉTÉ -->
+<!-- ============================================================ -->
+<div id="panel-extinction" class="panel">
+
+  <div class="alert danger">
+    <span class="alert-ico">🚫</span>
+    <div><strong>Ne jamais couper l'alimentation électrique brutalement</strong> pendant que le poêle fonctionne. Toujours laisser le cycle d'extinction se terminer.</div>
+  </div>
+
+  <div class="section-title"><span class="ico">❄️</span> Extinction normale (fin de soirée)</div>
+  <div class="checklist" id="cl-ext-normal">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">1</span>Appuyer <strong>longuement</strong> sur le bouton ON/OFF de la télécommande<span class="note">Bip sonore confirme l'extinction — l'écran affiche OFF</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">2</span>Attendre la phase NETTOYAGE FINAL à l'écran<span class="note">Le ventilateur continue de tourner pour refroidir — c'est normal, ne pas débrancher</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">3</span>Attendre l'affichage ÉTEINT complet<span class="note">Compter environ 15 à 20 minutes depuis l'arrêt</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="ico">🌞</span> Mise en veille complète pour l'été</div>
+  <div class="checklist" id="cl-ext-ete">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">1</span>Éteindre normalement comme ci-dessus et attendre ÉTEINT<span class="note">Le poêle doit être complètement froid</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">2</span>Vider et nettoyer le tiroir à cendres<span class="note">Laisser le tiroir propre et bien en place</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">3</span>Nettoyer la vitre avec eau + cendres de combustion<span class="note">Un chiffon coton — éviter les produits chimiques</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">4</span>Aspirer le compartiment foyer (brasero + coupe-flamme)<span class="note">Douceur — ne pas toucher le capteur derrière le coupe-flamme</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">5</span>Retirer les granulés restants du réservoir si possible<span class="note">Évite l'humidité et la dégradation des pellets pendant l'été</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">6</span>Passer l'interrupteur <strong>I/O</strong> du panneau latéral gauche sur <strong>O</strong><span class="note">Panneau côté gauche quand on est face au poêle — coupe totalement l'alimentation électrique</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">7</span>Débrancher le câble secteur de la prise murale<span class="note">Et retirer les piles de la télécommande</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">8</span>Faire nettoyer le conduit de fumée par un ramoneur<span class="note">Obligatoire une fois par an — il remet un certificat de conformité à conserver</span></div>
+    </div>
+  </div>
+
+  <div class="alert success">
+    <span class="alert-ico">✅</span>
+    <div><strong>Poêle prêt pour l'été !</strong> Au retour de saison froide, il suffira de recharger les granulés, rebrancher, et relancer le cycle d'allumage.</div>
+  </div>
+
+  <button class="reset-btn" onclick="resetChecklist('cl-ext-ete')">↺ Remettre à zéro</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 4 : ÉCONOMIES 21°C -->
+<!-- ============================================================ -->
+<div id="panel-economies" class="panel">
+
+  <div class="alert info">
+    <span class="alert-ico">💡</span>
+    <div>Ces réglages permettent de maintenir 21°C avec le minimum de granulés. Appliquer dans l'ordre.</div>
+  </div>
+
+  <div class="section-title"><span class="ico">🤖</span> Réglages essentiels d'économie</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">1</span>Activer le mode <strong>AUTO</strong><span class="note">Menu → HABILITER AUTO → cocher ✓ — le poêle gère la puissance tout seul</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">2</span>Régler la température cible à <strong>21°C exactement</strong><span class="note">Pas 22, pas 23 — chaque degré de trop = +5 à 10% de consommation</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label"><span class="step-num">3</span>Activer la fonction <strong>CONFORT CLIMAT</strong><span class="note">Menu → REGLAGE UTILIZ. → CONFORT CLIMAT → activer ✓</span></div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="ico">⚙️</span> Paramétrer le Confort Climat</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Temps en mode Économie avant extinction → régler à <strong>3 minutes</strong><span class="note">Le poêle reste en veille 3 min après avoir atteint 21°C, puis s'éteint</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Température de rallumage → régler à <strong>-2°C</strong><span class="note">Le poêle se rallume automatiquement quand la pièce descend à 19°C</span></div>
+    </div>
+  </div>
+
+  <div class="temp-card">
+    <h3>Comment ça fonctionne avec ces réglages</h3>
+    <div class="param-row"><span class="param-name">Pièce atteint 21°C</span><span class="param-val">→ mode Éco</span></div>
+    <div class="param-row"><span class="param-name">3 min en Éco</span><span class="param-val">→ extinction</span></div>
+    <div class="param-row"><span class="param-name">Pièce descend à 19°C</span><span class="param-val">→ rallumage auto</span></div>
+    <div class="param-row"><span class="param-name">Granulés à puissance max</span><span class="param-val">2,16 kg/h</span></div>
+    <div class="param-row"><span class="param-name">Granulés en maintien (P3)</span><span class="param-val">≈ 0,9 kg/h</span></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="ico">📅</span> Optimiser avec le chrono</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Programmer l'allumage <strong>30 min avant le réveil</strong><span class="note">La pièce est à 21°C quand tu te lèves — sans gaspillage de la nuit</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Éteindre <strong>2h avant d'aller dormir</strong><span class="note">L'inertie thermique maintient la chaleur — inutile de chauffer pendant le sommeil</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Ne pas chauffer pendant les absences longues<span class="note">Le chrono évite de chauffer une maison vide</span></div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="ico">🌿</span> Bons réflexes granulés</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Utiliser des granulés <strong>certifiés ENPlus A1 ou DINplus</strong><span class="note">Meilleur pouvoir calorifique (4,6–5,3 kWh/kg) → moins de granulés pour la même chaleur</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Stocker les granulés au sec, dans la même pièce que le poêle<span class="note">L'humidité réduit le rendement et encrasse plus vite</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Nettoyer le brasero et la vitre tous les 2-3 jours<span class="note">Un foyer propre brûle mieux et consomme moins</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Vider le tiroir à cendres tous les 7 jours<span class="note">Un tiroir plein perturbe la combustion</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 5 : ALARMES -->
+<!-- ============================================================ -->
+<div id="panel-alarmes" class="panel">
+
+  <div class="alert warn">
+    <span class="alert-ico">⚠️</span>
+    <div>Chaque alarme arrête le poêle automatiquement. Appuyer sur ON/OFF pour acquitter l'alarme, vérifier la cause, puis relancer.</div>
+  </div>
+
+  <div class="section-title"><span class="ico">🔍</span> Les alarmes les plus fréquentes</div>
+
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">🔴 <strong>AL-02 / AL-03 — Absence mise en marche / Granulés épuisés</strong><span class="note">→ Vérifier le réservoir — le remplir si vide. Si plein : appeler le SAV</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">🔴 <strong>AL-04 / AL-22 — Température fumées / Flamme</strong><span class="note">→ Éteindre, relancer avec le dispositif de nettoyage actif. Si ça persiste : appeler le SAV</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">🔴 <strong>AL-11 — Pression minimale Pascal</strong><span class="note">→ Vérifier que porte et tiroir cendres sont bien fermés. Vérifier le tuyau d'air</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">🔴 <strong>AL-13 — Dépression conduit fumée</strong><span class="note">→ Conduit bouché. Contacter un ramoneur</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">🔴 <strong>AL-14 — Thermostat réarmement manuel</strong><span class="note">→ Aller au dos de l'appareil, dévisser le bouchon de protection, appuyer sur le bouton de réarmement</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">🔴 <strong>AL-15 / AL-16 — Porte / Portillon ouvert</strong><span class="note">→ Fermer correctement la porte du foyer et/ou le portillon du réservoir à granulés</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="ico">🔋</span> Télécommande — problèmes fréquents</div>
+  <div class="checklist">
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Écran qui ne répond plus<span class="note">→ Appuyer sur ON/OFF pour sortir du mode Sleep</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Symbole batterie faible<span class="note">→ Remplacer les 3 piles AAA Alkaline 1,5V</span></div>
+    </div>
+    <div class="check-item" onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-label">Perte de communication télécommande ↔ poêle<span class="note">→ Utiliser le câble d'urgence (fourni) pour réinitialiser — retirer les piles avant de brancher le câble !</span></div>
+    </div>
+  </div>
+
+  <div class="alert danger">
+    <span class="alert-ico">🚒</span>
+    <div><strong>En cas d'incendie du conduit de fumée</strong> : couper l'appareil immédiatement, appeler les pompiers. Ne pas tenter d'éteindre soi-même.</div>
+  </div>
+
+</div>
+</div><!-- end content -->
+
+<div class="footer">
+  Guide simplifié — Nobis A10C Light / A10C Light 2020 · Pour les détails complets, consulter le manuel officiel
+</div>
+
+<script>
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function toggle(el) {
+  el.classList.toggle('checked');
+}
+
+function resetChecklist(id) {
+  const cl = document.getElementById(id);
+  if (cl) {
+    cl.querySelectorAll('.check-item').forEach(item => item.classList.remove('checked'));
+  } else {
+    document.querySelectorAll('.check-item').forEach(item => item.classList.remove('checked'));
+  }
+}
+</script>
+</body>
+</html>
